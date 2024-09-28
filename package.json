@@ -1,6 +1,6 @@
 {
   "name": "react-native-paylink",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "React native package to process payments using Paylink as a payment gateway for iOS, Android and Web apps",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
