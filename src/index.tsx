@@ -1,3 +1,20 @@
-export function multiply(a: number, b: number): Promise<number> {
-  return Promise.resolve(a * b);
-}
+import ReactNativePaylink, {
+  type ReactNativePaylinkProps,
+} from './ReactNativePaylink';
+import {
+  payUsingApplePay,
+  payUsingCard,
+  sendSTCPayOtp,
+  verifySTCPayOtp,
+} from './functions';
+import { fetchToken } from './posts';
+
+export {
+  fetchToken,
+  payUsingApplePay,
+  payUsingCard,
+  ReactNativePaylink,
+  sendSTCPayOtp,
+  verifySTCPayOtp,
+  type ReactNativePaylinkProps,
+};
