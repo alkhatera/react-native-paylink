@@ -1,20 +1,32 @@
 import ReactNativePaylink, {
   type ReactNativePaylinkProps,
-} from './ReactNativePaylink';
+} from './components/ReactNativePaylink';
 import {
-  payUsingApplePay,
-  payUsingCard,
-  sendSTCPayOtp,
-  verifySTCPayOtp,
-} from './functions';
-import { fetchToken } from './posts';
+  fetchMerchantToken,
+  fetchPartnerToken,
+  fetchSubMerchantToken,
+  addInvoice,
+  payInvoice,
+  fetchPayment,
+  refundPayment,
+  sendOtp,
+  processSTCPayPayment,
+} from './ts/api';
+import type { AddInvoiceProps } from './ts/types';
+import { type BottomSheetMethods } from '@devvie/bottom-sheet';
 
 export {
-  fetchToken,
-  payUsingApplePay,
-  payUsingCard,
+  fetchMerchantToken,
+  fetchPartnerToken,
+  fetchSubMerchantToken,
+  addInvoice,
+  payInvoice,
+  fetchPayment,
+  refundPayment,
+  sendOtp,
+  processSTCPayPayment,
   ReactNativePaylink,
-  sendSTCPayOtp,
-  verifySTCPayOtp,
   type ReactNativePaylinkProps,
+  type BottomSheetMethods,
+  type AddInvoiceProps,
 };

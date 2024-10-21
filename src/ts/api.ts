@@ -1,17 +1,22 @@
 import { PAYLINK_KEYS } from './constants';
 import type {
   AddInvoiceProps,
+  GetInvoiceProps,
+  MerchantTokenProps,
+  PartnerTokenProps,
+  PaylinkPayment,
   Post,
+  RefundPaymentProps,
   SendOtpProps,
   TokenProps,
   VerifyOtpProps,
 } from './types';
 
-export async function fetchToken({
+export async function fetchMerchantToken({
   apiId,
   secretKey,
-  persistToken,
-  env,
+  persistToken = true,
+  env = 'prod',
 }: TokenProps) {
   return POST({
     url: `${PAYLINK_KEYS[env].PAYLINK_URL}/api/auth`,
@@ -20,10 +25,42 @@ export async function fetchToken({
       secretKey,
       persistToken,
     },
-  });
+  }) as Promise<{ id_token: string }>;
 }
 
-// TODO: ADD FETCH MERCHANT TOKEN
+export async function fetchPartnerToken({
+  partnerProfileNo,
+  partnerApiKey,
+  persistToken,
+  env = 'prod',
+}: PartnerTokenProps) {
+  return POST({
+    url: `${PAYLINK_KEYS[env].PAYLINK_URL}/api/partner/auth`,
+    payload: {
+      profileNo: partnerProfileNo,
+      apiKey: partnerApiKey,
+      persistToken: persistToken || false,
+    },
+  }) as Promise<{ id_token: string }>;
+}
+
+export async function fetchSubMerchantToken(
+  { email, partnerProfileNo, env = 'prod' }: MerchantTokenProps,
+  token: string // merchant token
+) {
+  const authToken = await GET(
+    `${PAYLINK_KEYS[env].PAYLINK_URL}/rest/partner/getMerchantKeys/email/${email}?profileNo=${partnerProfileNo}`,
+    token
+  );
+
+  return authToken as {
+    id: number;
+    merchantId: number;
+    merchantPhone: string;
+    apiId: string;
+    secretKey: string;
+  };
+}
 
 export async function addInvoice(
   {
@@ -40,9 +77,9 @@ export async function addInvoice(
     supportedCardBrands,
     displayPending,
     callBackUrl,
-    env,
+    env = 'prod',
   }: AddInvoiceProps,
-  token: string
+  token: string // merchant/sub-merchant token
 ) {
   return POST({
     url: `${PAYLINK_KEYS[env].PAYLINK_URL}/api/addInvoice`,
@@ -81,9 +118,9 @@ export async function payInvoice(
     displayPending,
     card,
     callBackUrl,
-    env,
+    env = 'prod',
   }: AddInvoiceProps,
-  token: string
+  token: string // merchant/sub-merchant token
 ) {
   return POST({
     url: `${PAYLINK_KEYS[env].PAYLINK_URL}/api/payInvoice`,
@@ -105,6 +142,16 @@ export async function payInvoice(
     },
     token,
   });
+}
+
+export async function fetchPayment(
+  { transactionNo, env = 'prod' }: GetInvoiceProps,
+  token: string // merchant/sub-merchant token
+) {
+  return GET(
+    `${PAYLINK_KEYS[env].PAYLINK_URL}/api/getInvoice/${transactionNo}`,
+    token
+  ) as Promise<PaylinkPayment>;
 }
 
 export async function sendOtp({
@@ -151,6 +198,22 @@ export async function processSTCPayPayment({
   });
 }
 
+export async function refundPayment(
+  { orderNumber, refundReason, email, env = 'prod' }: RefundPaymentProps,
+  token: string // partner token
+): Promise<any> {
+  return POST({
+    url: `${
+      PAYLINK_KEYS[env].PAYLINK_URL
+    }/rest/partner/v2/merchant/email/${email}/refund`,
+    payload: {
+      orderNumber,
+      refundReason,
+    },
+    token,
+  });
+}
+
 async function POST({ url, payload, token }: Post) {
   try {
     let headers: {
@@ -177,7 +240,29 @@ async function POST({ url, payload, token }: Post) {
       const result = await res.json();
       return result;
     }
-    throw new Error(`ERR ${res.status}`);
+    throw new Error(`ERR ${res.status} ${await res.text()}`);
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+}
+
+async function GET(url: string, token?: string) {
+  try {
+    let headers: Record<string, string> = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    };
+
+    if (token) {
+      headers = {
+        ...headers,
+        Authorization: `Bearer ${token}`,
+      };
+    }
+
+    const res = await fetch(url, { headers });
+    return res.json();
   } catch (error: any) {
     throw new Error(error.message);
   }

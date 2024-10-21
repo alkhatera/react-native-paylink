@@ -1,8 +1,21 @@
 export interface TokenProps {
   apiId: string;
   secretKey: string;
+  persistToken?: boolean;
+  env?: 'test' | 'prod';
+}
+
+export interface PartnerTokenProps {
+  partnerProfileNo?: string;
+  partnerApiKey: string;
   persistToken: boolean;
-  env: 'test' | 'prod';
+  env?: 'test' | 'prod';
+}
+
+export interface MerchantTokenProps {
+  email: string;
+  partnerProfileNo: string;
+  env?: 'test' | 'prod';
 }
 
 export interface Card {
@@ -48,7 +61,19 @@ export interface AddInvoiceProps {
   card?: Card;
   products: Product[];
   callBackUrl?: string;
-  env: 'test' | 'prod';
+  env?: 'test' | 'prod';
+}
+
+export interface GetInvoiceProps {
+  transactionNo: string;
+  env?: 'test' | 'prod';
+}
+
+export interface RefundPaymentProps {
+  orderNumber: string;
+  refundReason: string;
+  email: string;
+  env?: 'test' | 'prod';
 }
 
 export interface SendOtpProps {
@@ -104,4 +129,46 @@ export interface VerifySTCPayOtpProps {
   orderNumber: string;
   total: number;
   env: 'test' | 'prod';
+}
+
+export interface PaylinkPayment {
+  amount: number;
+  checkUrl: string;
+  digitalOrder: boolean;
+  foreignCurrencyRate: number;
+  gatewayOrderRequest: {
+    amount: number;
+    callBackUrl: string;
+    cancelUrl: string;
+    clientEmail: string;
+    clientMobile: string;
+    clientName: string;
+    currency: string;
+    note: string;
+    orderNumber: string;
+    products: {
+      amount: number;
+      description: string;
+      name: string;
+      quantity: number;
+    }[];
+  };
+  orderStatus: 'Cancelled' | 'Declined' | 'Paid' | 'Pending';
+  paymentErrors: {
+    errorCode: string;
+    errorMessage: string;
+    errorTile: Date;
+    errorTitle: string;
+  }[];
+  qrUrl: string;
+  success: boolean;
+  transactionNo: string;
+  url: string;
+  paymentReceipt: {
+    receiptUrl: string;
+    passcode: string;
+    paymentMethod: string;
+    paymentDate: string;
+    bankCardNumber: string;
+  };
 }
