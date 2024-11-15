@@ -1,10 +1,20 @@
 {
   "name": "react-native-paylink",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React native package to process payments using Paylink as a payment gateway for iOS, Android and Web apps",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
+  "scripts": {
+    "example": "yarn workspace react-native-paylink-example",
+    "test": "jest",
+    "typecheck": "tsc",
+    "build:force": "tsc --skipLibCheck --noEmitOnError false",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "clean": "del-cli lib",
+    "prepare": "bob build",
+    "release": "release-it"
+  },
   "exports": {
     ".": {
       "import": {
@@ -35,15 +45,6 @@
     "!**/__mocks__",
     "!**/.*"
   ],
-  "scripts": {
-    "example": "yarn workspace react-native-paylink-example",
-    "test": "jest",
-    "typecheck": "tsc",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "clean": "del-cli lib",
-    "prepare": "bob build",
-    "release": "release-it"
-  },
   "keywords": [
     "react-native",
     "ios",
@@ -64,7 +65,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
-    "@devvie/bottom-sheet": "^0.4.2",
+    "@devvie/bottom-sheet": "^0.4.3",
     "@evilmartians/lefthook": "^1.5.0",
     "@react-native/eslint-config": "^0.73.1",
     "@release-it/conventional-changelog": "^5.0.0",
@@ -86,13 +87,13 @@
     "react-native": "0.74.5",
     "react-native-builder-bob": "^0.30.2",
     "react-native-credit-card-input": "^1.0.0",
-    "react-native-international-phone-number": "^0.7.6",
+    "react-native-international-phone-number": "^0.8.0",
     "react-native-really-awesome-button": "^2.0.4",
     "react-native-safe-area-context": "^4.11.0",
     "react-native-svg": "^15.7.1",
     "react-native-webview": "13.8.6",
     "release-it": "^15.0.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.6.3"
   },
   "resolutions": {
     "@types/react": "^18.2.44"
@@ -184,7 +185,6 @@
       [
         "typescript",
         {
-          "project": "tsconfig.build.json",
           "esm": true
         }
       ]

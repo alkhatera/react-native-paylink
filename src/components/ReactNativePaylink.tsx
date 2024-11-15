@@ -6,7 +6,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import { type IPhoneInputRef } from 'react-native-international-phone-number';
+import { IPhoneInputRef } from 'react-native-international-phone-number';
 import type { AddInvoiceProps } from '../ts/types';
 import Form from './Form';
 import SelectPaymentMethod from './SelectPaymentMethod';

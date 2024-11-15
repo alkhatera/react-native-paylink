@@ -118,7 +118,7 @@ export default function CreditCardForm({
       {showError ? (
         <View style={styles(scheme).error}>
           <AlertCircleIcon color={COLORS[scheme].error} />
-          <Text color={COLORS[scheme].error}>{showError}</Text>
+          <Text style={{ color: COLORS[scheme].error }}>{showError}</Text>
         </View>
       ) : null}
 
@@ -128,6 +128,7 @@ export default function CreditCardForm({
         progress
         onPress={onSubmitCreditCard}
         height={45}
+        // @ts-ignore
         width={'100%'}
         backgroundColor="#fff"
         textColor={COLORS[scheme].text}

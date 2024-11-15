@@ -2,7 +2,7 @@ import { AlertCircleIcon, ArrowLeft } from 'lucide-react-native';
 import { forwardRef, useState, type ForwardedRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import PhoneInput, {
-  type IPhoneInputRef,
+  IPhoneInputRef,
 } from 'react-native-international-phone-number';
 import AwesomeButton from 'react-native-really-awesome-button';
 import { addInvoice, processSTCPayPayment, sendOtp } from '../ts/api';
@@ -48,11 +48,16 @@ export const STCPayInput = forwardRef(
     const [showError, setShowError] = useState<undefined | string>();
 
     async function onSendOtp(next?: () => void) {
-      const isPhoneNumberValid = isEmpty(phoneInputRef.current?.fullPhoneNumber)
+      const isPhoneNumberValid = isEmpty(
+        // @ts-ignore
+        phoneInputRef?.current?.fullPhoneNumber ?? ''
+      )
         ? false
         : isValidPhoneNumber(
-            phoneInputRef.current?.selectedCountry?.callingCode ?? '+966',
-            phoneInputRef.current?.value || ''
+            // @ts-ignore
+            phoneInputRef?.current?.selectedCountry?.callingCode ?? '+966',
+            // @ts-ignore
+            phoneInputRef?.current?.value || ''
           );
 
       if (!isPhoneNumberValid) {
@@ -70,10 +75,16 @@ export const STCPayInput = forwardRef(
         setShowError(undefined);
       }
       const stcpayMobileCountryCode =
-        (phoneInputRef.current?.selectedCountry?.callingCode?.startsWith('+')
-          ? phoneInputRef.current?.selectedCountry?.callingCode?.split('+')[1]
-          : phoneInputRef.current?.selectedCountry?.callingCode) || '+966';
-      const stcpayMobile = removeWhitespace(phoneInputRef.current?.value || '');
+        // @ts-ignore
+        (phoneInputRef?.current?.selectedCountry?.callingCode?.startsWith('+')
+          ? // @ts-ignore
+            phoneInputRef.current?.selectedCountry?.callingCode?.split('+')[1]
+          : // @ts-ignore
+            phoneInputRef?.current?.selectedCountry?.callingCode) || '+966';
+      const stcpayMobile = removeWhitespace(
+        // @ts-ignore
+        phoneInputRef?.current?.value || ''
+      );
 
       try {
         const addInvoiceResponse = await addInvoice(order, token);
@@ -152,7 +163,7 @@ export const STCPayInput = forwardRef(
         {showError ? (
           <View style={styles.error}>
             <AlertCircleIcon color={COLORS[scheme].error} />
-            <Text color={COLORS[scheme].error}>{showError}</Text>
+            <Text style={{ color: COLORS[scheme].error }}>{showError}</Text>
           </View>
         ) : null}
 
@@ -162,6 +173,7 @@ export const STCPayInput = forwardRef(
           progress
           onPress={onSendOtp}
           height={45}
+          // @ts-ignore
           width={'100%'}
           backgroundColor={COLORS[scheme].stcpay}
         >
@@ -205,10 +217,14 @@ export const STCPayOtp = forwardRef(
 
     async function onCodeFilled(_code: string, next?: () => void) {
       const stcpayMobileCountryCode =
+        // @ts-ignore
         phoneInputRef?.current?.selectedCountry?.callingCode?.startsWith('+')
-          ? phoneInputRef.current?.selectedCountry?.callingCode?.split('+')[1]
-          : phoneInputRef?.current?.selectedCountry?.callingCode;
+          ? // @ts-ignore
+            phoneInputRef.current?.selectedCountry?.callingCode?.split('+')[1]
+          : // @ts-ignore
+            phoneInputRef?.current?.selectedCountry?.callingCode;
       const stcpayMobile = removeWhitespace(
+        // @ts-ignore
         phoneInputRef?.current?.value || ''
       );
 
@@ -281,8 +297,11 @@ export const STCPayOtp = forwardRef(
           </AwesomeButton>
 
           <Text
-            style={{ fontWeight: 'bold', fontSize: 18 }}
-            color={COLORS[scheme].text}
+            style={{
+              fontWeight: 'bold',
+              fontSize: 18,
+              color: COLORS[scheme].text,
+            }}
           >
             {language === 'ar'
               ? 'أدخل الرمز المرسل لك'
@@ -308,7 +327,7 @@ export const STCPayOtp = forwardRef(
         {showError ? (
           <View style={styles.error}>
             <AlertCircleIcon color={COLORS[scheme].error} />
-            <Text color={COLORS[scheme].error}>{showError}</Text>
+            <Text style={{ color: COLORS[scheme].error }}>{showError}</Text>
           </View>
         ) : null}
 
@@ -318,6 +337,7 @@ export const STCPayOtp = forwardRef(
           progress
           onPress={(next) => onCodeFilled(code, next)}
           height={45}
+          // @ts-ignore
           width={'100%'}
           backgroundColor={COLORS[scheme].stcpay}
           disabled={code.length < numberOfChars}

@@ -1954,13 +1954,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@devvie/bottom-sheet@npm:^0.4.2":
-  version: 0.4.2
-  resolution: "@devvie/bottom-sheet@npm:0.4.2"
+"@devvie/bottom-sheet@npm:^0.4.3":
+  version: 0.4.3
+  resolution: "@devvie/bottom-sheet@npm:0.4.3"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 837575989ec1fa871b32f94eb09be8dcc9c7b02e16a7c264ee40cc4668f19215cebf03d4a9dcd33ff52282378525a378df832d1f37a26d00e8e93ab255302f06
+  checksum: 485f84af3279f40fa20d2219e875fc6f05be411950e83034ede71152e9aa68dfb38a0ed55d797187fcef0e26a155eb07aea2daff0469c58cce67fe5fad36c468
   languageName: node
   linkType: hard
 
@@ -12713,13 +12713,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-country-codes-picker@npm:2.3.4":
-  version: 2.3.4
-  resolution: "react-native-country-codes-picker@npm:2.3.4"
+"react-native-country-codes-picker@npm:2.3.5":
+  version: 2.3.5
+  resolution: "react-native-country-codes-picker@npm:2.3.5"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: ef9727d6e143510d3a1635369566761c553fd30ae09bba894c59d052bd9b0bd9692a9091d1bc262ae46d7dc46cd3237e7341f8928af2f77140846f571c6e434d
+  checksum: 3b07665ecdf3b54ca60233e6e2540b98aa24734970bae920d0c3c9a36727b32b852f01a2ac11a0cebe4e2ef0b9fc61ad10c5bd6eeb7b4c724f0188c07d8b8420
   languageName: node
   linkType: hard
 
@@ -12746,15 +12746,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-international-phone-number@npm:^0.7.6":
-  version: 0.7.6
-  resolution: "react-native-international-phone-number@npm:0.7.6"
+"react-native-international-phone-number@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "react-native-international-phone-number@npm:0.8.0"
   dependencies:
-    react-native-country-codes-picker: 2.3.4
+    react-native-country-codes-picker: 2.3.5
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: eb5009c303b2f88345a89f0e06e7efe232d837545a4249830470cbaf7a49c1e6c789e086cf5d9fe87712466a13d23f0fc677b078124950e21fb0b986d5e56fec
+  checksum: f5c3e00cc77c4f29fd178e79a095ce997cc15e09b6aec0c651786f6765608d0b325c1e3e2364d421c809421f07ed7fd69fd86082f7eb0211b874f0d6fa75c49d
   languageName: node
   linkType: hard
 
@@ -12779,7 +12779,7 @@ __metadata:
   resolution: "react-native-paylink@workspace:."
   dependencies:
     "@commitlint/config-conventional": ^17.0.2
-    "@devvie/bottom-sheet": ^0.4.2
+    "@devvie/bottom-sheet": ^0.4.3
     "@evilmartians/lefthook": ^1.5.0
     "@react-native/eslint-config": ^0.73.1
     "@release-it/conventional-changelog": ^5.0.0
@@ -12801,13 +12801,13 @@ __metadata:
     react-native: 0.74.5
     react-native-builder-bob: ^0.30.2
     react-native-credit-card-input: ^1.0.0
-    react-native-international-phone-number: ^0.7.6
+    react-native-international-phone-number: ^0.8.0
     react-native-really-awesome-button: ^2.0.4
     react-native-safe-area-context: ^4.11.0
     react-native-svg: ^15.7.1
     react-native-webview: 13.8.6
     release-it: ^15.0.0
-    typescript: ^5.2.2
+    typescript: ^5.6.3
   peerDependencies:
     react: "*"
     react-native: "*"
@@ -14956,7 +14956,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.6.4 || ^5.2.2, typescript@npm:^5.2.2":
+"typescript@npm:^4.6.4 || ^5.2.2":
   version: 5.6.2
   resolution: "typescript@npm:5.6.2"
   bin:
@@ -14966,13 +14966,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.6.4 || ^5.2.2#~builtin<compat/typescript>, typescript@patch:typescript@^5.2.2#~builtin<compat/typescript>":
+"typescript@npm:^5.6.3":
+  version: 5.6.3
+  resolution: "typescript@npm:5.6.3"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: ba302f8822777ebefb28b554105f3e074466b671e7444ec6b75dadc008a62f46f373d9e57ceced1c433756d06c8b7dc569a7eefdf3a9573122a49205ff99021a
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^4.6.4 || ^5.2.2#~builtin<compat/typescript>":
   version: 5.6.2
   resolution: "typescript@patch:typescript@npm%3A5.6.2#~builtin<compat/typescript>::version=5.6.2&hash=14eedb"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: c084ee1ab865f108c787e6233a5f63c126c482c0c8e87ec998ac5288a2ad54b603e1ea8b8b272355823b833eb31b9fabb99e8c6152283e1cb47e3a76bd6faf6c
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^5.6.3#~builtin<compat/typescript>":
+  version: 5.6.3
+  resolution: "typescript@patch:typescript@npm%3A5.6.3#~builtin<compat/typescript>::version=5.6.3&hash=14eedb"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: ade87bce2363ee963eed0e4ca8a312ea02c81873ebd53609bc3f6dc0a57f6e61ad7e3fb8cbb7f7ab8b5081cbee801b023f7c4823ee70b1c447eae050e6c7622b
   languageName: node
   linkType: hard
 

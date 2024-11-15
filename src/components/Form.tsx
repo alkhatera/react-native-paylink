@@ -6,7 +6,7 @@ import type { AddInvoiceProps } from '../ts/types';
 import CreditCardForm from './CreditCardForm';
 import { STCPayInput } from './STCPayForm';
 import { forwardRef, type ForwardedRef } from 'react';
-import type { IPhoneInputRef } from 'react-native-international-phone-number';
+import { IPhoneInputRef } from 'react-native-international-phone-number';
 
 interface FormProps {
   handleScroll: (index: number) => void;
@@ -37,7 +37,7 @@ const Form = forwardRef(
       order,
       onError,
     }: FormProps,
-    phoneInputRef: ForwardedRef<IPhoneInputRef>
+    phoneInputRef?: ForwardedRef<IPhoneInputRef>
   ) => {
     return (
       <>
@@ -47,6 +47,8 @@ const Form = forwardRef(
             onPress={() => {
               handleScroll(0);
               // reset
+
+              // @ts-ignore
               phoneInputRef?.current?.clear?.();
               setTransactionNo('');
               setStcPayObj({
@@ -73,8 +75,11 @@ const Form = forwardRef(
           </AwesomeButton>
 
           <Text
-            style={{ fontWeight: 'bold', fontSize: 18 }}
-            color={COLORS[scheme].text}
+            style={{
+              fontWeight: 'bold',
+              fontSize: 18,
+              color: COLORS[scheme].text,
+            }}
           >
             {formType === 'stcpay'
               ? language === 'ar'

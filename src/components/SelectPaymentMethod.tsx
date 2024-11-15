@@ -39,7 +39,7 @@ export default function SelectPaymentMethod({
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.text} color={COLORS[scheme].text}>
+      <Text style={[styles.text, { color: COLORS[scheme].text }]}>
         {language === 'ar' ? 'اختر طريقة الدفع' : 'Choose payment method'}
       </Text>
 
@@ -67,6 +67,7 @@ export default function SelectPaymentMethod({
           display: applePayLoaded ? 'none' : 'flex',
         }}
       >
+        {/* @ts-ignore */}
         <AwesomeButton disabled height={45} width={'100%'} />
       </View>
 
@@ -75,6 +76,7 @@ export default function SelectPaymentMethod({
       <AwesomeButton
         onPress={() => onButtonPress('stcpay')}
         height={45}
+        // @ts-ignore
         width={'100%'}
         backgroundColor={COLORS[scheme].stcpay}
       >
@@ -86,6 +88,7 @@ export default function SelectPaymentMethod({
       <AwesomeButton
         onPress={() => onButtonPress('creditcard')}
         height={45}
+        // @ts-ignore
         width={'100%'}
         backgroundColor={COLORS[scheme].bg}
       >
