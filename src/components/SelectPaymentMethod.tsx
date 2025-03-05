@@ -1,4 +1,11 @@
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  Image,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import ApplePayButtonWebView from './ApplePayButtonWebView';
 import AwesomeButton from 'react-native-really-awesome-button';
 import STCPayLogo from '../assets/stcpay';
@@ -43,33 +50,37 @@ export default function SelectPaymentMethod({
         {language === 'ar' ? 'اختر طريقة الدفع' : 'Choose payment method'}
       </Text>
 
-      <View style={styles.divider} />
-      <View
-        style={{
-          width: '100%',
-          display: applePayLoaded ? 'flex' : 'none',
-        }}
-      >
-        <ApplePayButtonWebView
-          token={token}
-          order={order}
-          onLoaded={onLoaded}
-          height={46}
-          width={tab_size - 40}
-          language={language}
-          onSuccess={onSuccess}
-        />
-      </View>
+      {Platform.OS === 'ios' ? (
+        <>
+          <View style={styles.divider} />
+          <View
+            style={{
+              width: '100%',
+              display: applePayLoaded ? 'flex' : 'none',
+            }}
+          >
+            <ApplePayButtonWebView
+              token={token}
+              order={order}
+              onLoaded={onLoaded}
+              height={46}
+              width={tab_size - 40}
+              language={language}
+              onSuccess={onSuccess}
+            />
+          </View>
 
-      <View
-        style={{
-          width: '100%',
-          display: applePayLoaded ? 'none' : 'flex',
-        }}
-      >
-        {/* @ts-ignore */}
-        <AwesomeButton disabled height={45} width={'100%'} />
-      </View>
+          <View
+            style={{
+              width: '100%',
+              display: applePayLoaded ? 'none' : 'flex',
+            }}
+          >
+            {/* @ts-ignore */}
+            <AwesomeButton disabled height={45} width={'100%'} />
+          </View>
+        </>
+      ) : null}
 
       <View style={styles.divider} />
 

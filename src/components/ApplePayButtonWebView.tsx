@@ -42,7 +42,7 @@ const ApplePayButtonWebView = ({
 				});
 		});
 		} catch (error) {
-		 		alert(error.message);
+		 		console.log('ERR @ Apple Pay: ', error.message);
 		}
 		</script>
     <body>

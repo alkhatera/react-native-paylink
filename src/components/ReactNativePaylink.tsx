@@ -1,6 +1,7 @@
-import BottomSheet from '@devvie/bottom-sheet';
+import BottomSheet, { BottomSheetMethods } from '@devvie/bottom-sheet';
 import { forwardRef, useCallback, useRef, useState } from 'react';
 import {
+  Platform,
   ScrollView,
   StyleSheet,
   useWindowDimensions,
@@ -31,7 +32,7 @@ const ReactNativePaylink = forwardRef(
       onError,
       onSuccess,
     }: ReactNativePaylinkProps,
-    sheetRef
+    sheetRef: React.ForwardedRef<BottomSheetMethods>
   ) => {
     const { width: tab_size } = useWindowDimensions();
 
@@ -55,7 +56,12 @@ const ReactNativePaylink = forwardRef(
     );
 
     return (
-      <BottomSheet ref={sheetRef} animationType="spring" height="80%">
+      <BottomSheet
+        ref={sheetRef}
+        animationType="spring"
+        height="80%"
+        disableBodyPanning={Platform.OS === 'android'}
+      >
         <ScrollView
           ref={scroll}
           showsHorizontalScrollIndicator={false}

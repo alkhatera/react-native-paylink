@@ -14,7 +14,7 @@ import {
   removeWhitespace,
   toEnglishNumber,
 } from '../ts/utils';
-import OTPInputView from '@twotalltotems/react-native-otp-input';
+import { OtpInput } from 'react-native-otp-entry';
 
 interface STCPayInputProps {
   language: 'ar' | 'en';
@@ -213,7 +213,7 @@ export const STCPayOtp = forwardRef(
   ) => {
     const [showError, setShowError] = useState<undefined | string>();
     const [code, setCode] = useState('');
-    const [numberOfChars] = useState(6);
+    const [numberOfChars] = useState(4);
 
     async function onCodeFilled(_code: string, next?: () => void) {
       const stcpayMobileCountryCode =
@@ -312,14 +312,12 @@ export const STCPayOtp = forwardRef(
         <View style={{ height: 15 }} />
 
         {/* TODO: Change to Normal Textfield to Account for Different OTP Lengths */}
-        <OTPInputView
-          style={{ width: '100%', height: 50 }}
-          pinCount={numberOfChars}
-          code={code || ''}
-          onCodeChanged={(_code: string) => setCode(toEnglishNumber(_code))}
-          codeInputFieldStyle={codeInputFieldStyle(scheme)}
-          autoFocusOnLoad={false}
-          // onCodeFilled={(code) => {}}
+        <OtpInput
+          numberOfDigits={numberOfChars}
+          onTextChange={(_code: string) => setCode(toEnglishNumber(_code))}
+          theme={{
+            containerStyle: { width: '100%', height: 50 },
+          }}
         />
 
         <View style={{ height: 10 }} />
