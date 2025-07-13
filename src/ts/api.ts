@@ -12,22 +12,13 @@ import type {
   VerifyOtpProps,
 } from './types';
 
-export async function fetchMerchantToken({
-  apiId,
-  secretKey,
-  persistToken = true,
-  env = 'prod',
-}: TokenProps) {
-  return POST({
-    url: `${PAYLINK_KEYS[env].PAYLINK_URL}/api/auth`,
-    payload: {
-      apiId,
-      secretKey,
-      persistToken,
-    },
-  }) as Promise<{ id_token: string }>;
-}
-
+/**
+ * This is used to fetch the partner token for the partner sign up process.
+ * @param partnerProfileNo - The profile number of the partner.
+ * @param partnerApiKey - The API key of the partner.
+ * @param persistToken - Whether to persist the token or not.
+ * @returns A promise that resolves to the partner token.
+ */
 export async function fetchPartnerToken({
   partnerProfileNo,
   partnerApiKey,
@@ -44,6 +35,38 @@ export async function fetchPartnerToken({
   }) as Promise<{ id_token: string }>;
 }
 
+/**
+ * Fetch the merchant token for the merchant payment.
+ * @param apiId - The API ID of the merchant.
+ * @param secretKey - The secret key of the merchant.
+ * @param persistToken - Whether to persist the token or not.
+ * @param env - The environment to use (default is 'prod').
+ * @returns A promise that resolves to the merchant token.
+ */
+export async function fetchMerchantToken({
+  apiId,
+  secretKey,
+  persistToken = true,
+  env = 'prod',
+}: TokenProps) {
+  return POST({
+    url: `${PAYLINK_KEYS[env].PAYLINK_URL}/api/auth`,
+    payload: {
+      apiId,
+      secretKey,
+      persistToken,
+    },
+  }) as Promise<{ id_token: string }>;
+}
+
+/**
+ * Fetch the sub-merchant token for the sub-merchant payment.
+ * @param email - The email of the sub-merchant.
+ * @param partnerProfileNo - The profile number of the partner.
+ * @param env - The environment to use (default is 'prod').
+ * @param token - The merchant token to use for authentication.
+ * @returns A promise that resolves to the sub-merchant token.
+ */
 export async function fetchSubMerchantToken(
   { email, partnerProfileNo, env = 'prod' }: MerchantTokenProps,
   token: string // merchant token
@@ -62,6 +85,12 @@ export async function fetchSubMerchantToken(
   };
 }
 
+/**
+ * Create a new invoice using the Paylink API.
+ * @param props - The properties for the invoice.
+ * @param token - The merchant or sub-merchant token to use for authentication.
+ * @returns A promise that resolves to the created invoice.
+ */
 export async function addInvoice(
   {
     amount,
@@ -102,6 +131,11 @@ export async function addInvoice(
   });
 }
 
+/**
+ * Pay an invoice using the Paylink API.
+ * @param props - The properties for the payment.
+ * @param token - The merchant or sub-merchant token to use for authentication.
+ */
 export async function payInvoice(
   {
     amount,
@@ -144,6 +178,13 @@ export async function payInvoice(
   });
 }
 
+/**
+ * Fetch the payment details for a specific transaction.
+ * @param transactionNo - The transaction number to fetch details for.
+ * @param env - The environment to use (default is 'prod').
+ * @param token - The merchant or sub-merchant token to use for authentication.
+ * @returns A promise that resolves to the payment details.
+ */
 export async function fetchPayment(
   { transactionNo, env = 'prod' }: GetInvoiceProps,
   token: string // merchant/sub-merchant token
@@ -154,6 +195,11 @@ export async function fetchPayment(
   ) as Promise<PaylinkPayment>;
 }
 
+/**
+ * Send an OTP for STC Pay payment.
+ * @param props - The properties for sending the OTP.
+ * @returns A promise that resolves to the response from the API.
+ */
 export async function sendOtp({
   stcpayMobileCountryCode,
   stcpayMobile,
@@ -172,6 +218,11 @@ export async function sendOtp({
   });
 }
 
+/**
+ * Process the STC Pay payment after OTP verification.
+ * @param props - The properties for processing the payment.
+ * @returns A promise that resolves to the response from the API.
+ */
 export async function processSTCPayPayment({
   stcpayMobileCountryCode,
   stcpayMobile,
@@ -198,9 +249,15 @@ export async function processSTCPayPayment({
   });
 }
 
+/**
+ * Refund a payment using the Paylink API.
+ * @param props - The properties for the refund.
+ * @param token - The merchant or sub-merchant token to use for authentication.
+ * @returns A promise that resolves to the refund response.
+ */
 export async function refundPayment(
   { orderNumber, refundReason, email, env = 'prod' }: RefundPaymentProps,
-  token: string // partner token
+  token: string // merchant/sub-merchant token
 ): Promise<any> {
   return POST({
     url: `${

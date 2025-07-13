@@ -16,9 +16,14 @@ import {
   type AddInvoiceProps,
 } from 'react-native-paylink';
 import { fetchPayment } from '../../src/ts/api';
+import { useFonts } from 'expo-font';
 
 export default function App() {
   const sheetRef = useRef<BottomSheetMethods>(null);
+
+  const [fontsLoaded, error] = useFonts({
+    SaudiRiyal: require('../assets/saudi_riyal.ttf'),
+  });
 
   const [apiId, setApiId] = useState('');
   const [secretKey, setSecretKey] = useState('');
@@ -85,10 +90,24 @@ export default function App() {
     }
   };
 
+  if (!fontsLoaded) {
+    return <Text>Loading...</Text>; // Show a loading text while the font loads
+  }
+
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.inputCont}>
+          <Text
+            style={{
+              fontFamily: 'SaudiRiyal',
+              height: 30,
+              textAlign: 'center',
+            }}
+          >
+            &#xE900;5
+          </Text>
+
           <TextInput
             style={styles.input}
             onChangeText={(text) => setApiId(text)}

@@ -1,5 +1,5 @@
 import BottomSheet, { BottomSheetMethods } from '@devvie/bottom-sheet';
-import { forwardRef, useCallback, useRef, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import {
   Platform,
   ScrollView,
@@ -54,6 +54,10 @@ const ReactNativePaylink = forwardRef(
       },
       [tab_size]
     );
+
+    useEffect(() => {
+      handleScroll(0);
+    }, []);
 
     return (
       <BottomSheet
