@@ -15,7 +15,7 @@ import {
   ReactNativePaylink,
   type AddInvoiceProps,
 } from 'react-native-paylink';
-import { fetchPayment } from '../../src/ts/api';
+import { fetchPayment, fetchSubMerchantKeys } from '../../src/ts/api';
 import { useFonts } from 'expo-font';
 
 export default function App() {
@@ -28,7 +28,10 @@ export default function App() {
   const [apiId, setApiId] = useState('');
   const [secretKey, setSecretKey] = useState('');
   const [isProd, setIsProd] = useState(false);
+  const [isMerchant, setIsMerchant] = useState(true);
   const [token, setToken] = useState<string | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
+  const [profileNo, setProfileNo] = useState<string | null>(null);
 
   const order = useMemo(
     () =>
@@ -77,13 +80,39 @@ export default function App() {
         return;
       }
 
-      const { id_token } = await fetchMerchantToken({
-        apiId, // prod
-        secretKey,
-        env: isProd ? 'prod' : 'test', // prod
-      });
-      setToken(id_token);
-      sheetRef.current?.open();
+      if (isMerchant) {
+        const { id_token } = await fetchMerchantToken({
+          apiId, // prod
+          secretKey,
+          env: isProd ? 'prod' : 'test', // prod
+        });
+        setToken(id_token);
+        sheetRef.current?.open();
+      } else {
+        const { id_token } = await fetchMerchantToken({
+          apiId, // prod
+          secretKey,
+          env: isProd ? 'prod' : 'test', // prod
+        });
+
+        const merchantKeys = await fetchSubMerchantKeys(
+          {
+            email: email ?? '',
+            profileNo: profileNo ?? '',
+            env: isProd ? 'prod' : 'test',
+          },
+          id_token
+        );
+
+        const { id_token: submerchantToken } = await fetchMerchantToken({
+          apiId: merchantKeys.apiId,
+          secretKey: merchantKeys.secretKey,
+          env: isProd ? 'prod' : 'test',
+        });
+
+        setToken(submerchantToken);
+        sheetRef.current?.open();
+      }
     } catch (error) {
       console.error('Error fetching token:', error);
       Alert.alert('Error', 'Error fetching token');
@@ -132,6 +161,37 @@ export default function App() {
               value={isProd}
             />
           </View>
+
+          <View style={{ height: 10 }} />
+
+          <View style={styles.switch}>
+            <Text>Is Merchant Token?</Text>
+            <Switch
+              trackColor={{ false: '#767577', true: '#81b0ff' }}
+              thumbColor={isMerchant ? '#f5dd4b' : '#f4f3f4'}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={(value) => setIsMerchant(value)}
+              value={isMerchant}
+            />
+          </View>
+
+          {!isMerchant ? (
+            <>
+              <TextInput
+                style={styles.input}
+                onChangeText={(text) => setEmail(text)}
+                value={email ?? ''}
+                placeholder="email"
+              />
+
+              <TextInput
+                style={styles.input}
+                onChangeText={(text) => setProfileNo(text)}
+                value={profileNo ?? ''}
+                placeholder="profileNo"
+              />
+            </>
+          ) : null}
         </View>
 
         <Button title="Press to Pay" onPress={onPressPay} />

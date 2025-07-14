@@ -13,29 +13,6 @@ import type {
 } from './types';
 
 /**
- * This is used to fetch the partner token for the partner sign up process.
- * @param partnerProfileNo - The profile number of the partner.
- * @param partnerApiKey - The API key of the partner.
- * @param persistToken - Whether to persist the token or not.
- * @returns A promise that resolves to the partner token.
- */
-export async function fetchPartnerToken({
-  partnerProfileNo,
-  partnerApiKey,
-  persistToken,
-  env = 'prod',
-}: PartnerTokenProps) {
-  return POST({
-    url: `${PAYLINK_KEYS[env].PAYLINK_URL}/api/partner/auth`,
-    payload: {
-      profileNo: partnerProfileNo,
-      apiKey: partnerApiKey,
-      persistToken: persistToken || false,
-    },
-  }) as Promise<{ id_token: string }>;
-}
-
-/**
  * Fetch the merchant token for the merchant payment.
  * @param apiId - The API ID of the merchant.
  * @param secretKey - The secret key of the merchant.
@@ -60,19 +37,19 @@ export async function fetchMerchantToken({
 }
 
 /**
- * Fetch the sub-merchant token for the sub-merchant payment.
+ * Fetch the sub-merchant keys for a sub-merchant.
  * @param email - The email of the sub-merchant.
- * @param partnerProfileNo - The profile number of the partner.
+ * @param profileNo - The profile number of the partner.
  * @param env - The environment to use (default is 'prod').
  * @param token - The merchant token to use for authentication.
  * @returns A promise that resolves to the sub-merchant token.
  */
-export async function fetchSubMerchantToken(
-  { email, partnerProfileNo, env = 'prod' }: MerchantTokenProps,
+export async function fetchSubMerchantKeys(
+  { email, profileNo, env = 'prod' }: MerchantTokenProps,
   token: string // merchant token
 ) {
   const authToken = await GET(
-    `${PAYLINK_KEYS[env].PAYLINK_URL}/rest/partner/getMerchantKeys/email/${email}?profileNo=${partnerProfileNo}`,
+    `${PAYLINK_KEYS[env].PAYLINK_URL}/rest/partner/getMerchantKeys/email/${email}?profileNo=${profileNo}`,
     token
   );
 

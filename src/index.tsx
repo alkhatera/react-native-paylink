@@ -3,8 +3,7 @@ import ReactNativePaylink, {
 } from './components/ReactNativePaylink';
 import {
   fetchMerchantToken,
-  fetchPartnerToken,
-  fetchSubMerchantToken,
+  fetchSubMerchantKeys,
   addInvoice,
   payInvoice,
   fetchPayment,
@@ -17,8 +16,7 @@ import { type BottomSheetMethods } from '@devvie/bottom-sheet';
 
 export {
   fetchMerchantToken,
-  fetchPartnerToken,
-  fetchSubMerchantToken,
+  fetchSubMerchantKeys,
   addInvoice,
   payInvoice,
   fetchPayment,

@@ -14,7 +14,7 @@ export interface PartnerTokenProps {
 
 export interface MerchantTokenProps {
   email: string;
-  partnerProfileNo: string;
+  profileNo: string;
   env?: 'test' | 'prod';
 }
 
