@@ -7,10 +7,11 @@ import CreditCardForm from './CreditCardForm';
 import { STCPayInput } from './STCPayForm';
 import { forwardRef, type ForwardedRef } from 'react';
 import { IPhoneInputRef } from 'react-native-international-phone-number';
+import WebView from 'react-native-webview';
 
 interface FormProps {
   handleScroll: (index: number) => void;
-  formType: 'stcpay' | 'creditcard';
+  formType: 'stcpay' | 'creditcard' | 'online';
   scheme: 'light' | 'dark';
   language: 'ar' | 'en';
   token: string;
@@ -21,6 +22,7 @@ interface FormProps {
     signature: string;
     signedBase64Data: string;
   }) => void;
+  paymentUrl?: string;
   onError?: (error: string) => void;
 }
 
@@ -36,6 +38,7 @@ const Form = forwardRef(
       token,
       order,
       onError,
+      paymentUrl,
     }: FormProps,
     phoneInputRef?: ForwardedRef<IPhoneInputRef>
   ) => {
@@ -105,13 +108,18 @@ const Form = forwardRef(
             handleScroll={handleScroll}
             ref={phoneInputRef}
           />
-        ) : (
+        ) : formType === 'creditcard' ? (
           <CreditCardForm
             language={language}
             scheme={scheme}
             onError={onError}
             token={token}
             order={order}
+          />
+        ) : (
+          <WebView
+            source={{ uri: paymentUrl }}
+            onNavigationStateChange={(e) => {}}
           />
         )}
       </>
