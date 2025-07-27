@@ -7266,18 +7266,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-font@npm:^13.0.4":
-  version: 13.0.4
-  resolution: "expo-font@npm:13.0.4"
-  dependencies:
-    fontfaceobserver: ^2.1.0
-  peerDependencies:
-    expo: "*"
-    react: "*"
-  checksum: 36fa98d333c97a9a309f0ffa45827616167162caaaca6873f04d6e3d658c669da9e894fadd582b9bcc569f3b5b2043553ca204e4333d7496ad2e5843f0373b09
-  languageName: node
-  linkType: hard
-
 "expo-font@npm:~13.3.2":
   version: 13.3.2
   resolution: "expo-font@npm:13.3.2"
@@ -12697,7 +12685,6 @@ __metadata:
     eslint: ^8.51.0
     eslint-config-prettier: ^9.0.0
     eslint-plugin-prettier: ^5.0.1
-    expo-font: ^13.0.4
     jest: ^29.7.0
     libphonenumber-js: ^1.12.4
     lucide-react-native: ^0.477.0
@@ -12716,6 +12703,7 @@ __metadata:
     release-it: ^18.1.2
     typescript: ^5.8.2
   peerDependencies:
+    expo-font: ">=13.0.0"
     react: "*"
     react-native: "*"
   languageName: unknown
