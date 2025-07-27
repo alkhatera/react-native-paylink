@@ -6041,15 +6041,15 @@ __metadata:
   linkType: hard
 
 "css-select@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "css-select@npm:5.1.0"
+  version: 5.2.2
+  resolution: "css-select@npm:5.2.2"
   dependencies:
     boolbase: ^1.0.0
     css-what: ^6.1.0
     domhandler: ^5.0.2
     domutils: ^3.0.1
     nth-check: ^2.0.1
-  checksum: 2772c049b188d3b8a8159907192e926e11824aea525b8282981f72ba3f349cf9ecd523fdf7734875ee2cb772246c22117fc062da105b6d59afe8dcd5c99c9bda
+  checksum: 0ab672620c6bdfe4129dfecf202f6b90f92018b24a1a93cfbb295c24026d0163130ba4b98d7443f87246a2c1d67413798a7a5920cd102b0cfecfbc89896515aa
   languageName: node
   linkType: hard
 
@@ -6064,9 +6064,9 @@ __metadata:
   linkType: hard
 
 "css-what@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "css-what@npm:6.1.0"
-  checksum: b975e547e1e90b79625918f84e67db5d33d896e6de846c9b584094e529f0c63e2ab85ee33b9daffd05bff3a146a1916bec664e18bb76dd5f66cbff9fc13b2bbe
+  version: 6.2.2
+  resolution: "css-what@npm:6.2.2"
+  checksum: 4d1f07b348a638e1f8b4c72804a1e93881f35e0f541256aec5ac0497c5855df7db7ab02da030de950d4813044f6d029a14ca657e0f92c3987e4b604246235b2b
   languageName: node
   linkType: hard
 
@@ -6444,13 +6444,13 @@ __metadata:
   linkType: hard
 
 "domutils@npm:^3.0.1":
-  version: 3.1.0
-  resolution: "domutils@npm:3.1.0"
+  version: 3.2.2
+  resolution: "domutils@npm:3.2.2"
   dependencies:
     dom-serializer: ^2.0.0
     domelementtype: ^2.3.0
     domhandler: ^5.0.3
-  checksum: e5757456ddd173caa411cfc02c2bb64133c65546d2c4081381a3bafc8a57411a41eed70494551aa58030be9e58574fcc489828bebd673863d39924fb4878f416
+  checksum: ae941d56f03d857077d55dde9297e960a625229fc2b933187cc4123084d7c2d2517f58283a7336567127029f1e008449bac8ac8506d44341e29e3bb18e02f906
   languageName: node
   linkType: hard
 
@@ -12706,6 +12706,9 @@ __metadata:
     expo-font: ">=13.0.0"
     react: "*"
     react-native: "*"
+    react-native-safe-area-context: ">=4.0.0"
+    react-native-svg: ">=13.0.0"
+    react-native-webview: ">=11.0.0"
   languageName: unknown
   linkType: soft
 
@@ -12720,18 +12723,18 @@ __metadata:
   linkType: hard
 
 "react-native-safe-area-context@npm:^5.3.0":
-  version: 5.3.0
-  resolution: "react-native-safe-area-context@npm:5.3.0"
+  version: 5.5.2
+  resolution: "react-native-safe-area-context@npm:5.5.2"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 21f18b1286fc7bc6f38f864b7468848c16c58106ae429633e8f655dabb80571beba19ac8aa8bc5e1b2e926d75afddd7ded919a56450aa00c36d56f7fb421f782
+  checksum: 694e293b474b0738899c6e09da9f001d8087b382b5a40b8b227765c861a8137f0ff0209f1c9d8ae94337bc9c170eb114a9b897a8661b8181f48759a21baeb265
   languageName: node
   linkType: hard
 
 "react-native-svg@npm:^15.11.2":
-  version: 15.11.2
-  resolution: "react-native-svg@npm:15.11.2"
+  version: 15.12.0
+  resolution: "react-native-svg@npm:15.12.0"
   dependencies:
     css-select: ^5.1.0
     css-tree: ^1.1.3
@@ -12739,7 +12742,7 @@ __metadata:
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 7bc2d9a5b7ceb66905e358d995bf102d63ce017db40b024d31a6ada03c21733fd3620f9ad867d631b878e2380033ea8777e75c4f654bc5b420ea902695ed9ba8
+  checksum: 0a78333ab4fb1aae38f190a22a1afcbfa2ae9192ccd2ac7a989f3108bd32afe1b84800b4dce0f92c68ad4eca6809046b5f997fbfcb072b872dd34ea04c8f44aa
   languageName: node
   linkType: hard
 
@@ -12763,15 +12766,15 @@ __metadata:
   linkType: hard
 
 "react-native-webview@npm:^13.13.2":
-  version: 13.13.2
-  resolution: "react-native-webview@npm:13.13.2"
+  version: 13.15.0
+  resolution: "react-native-webview@npm:13.15.0"
   dependencies:
     escape-string-regexp: ^4.0.0
     invariant: 2.2.4
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 034b1ac22b32f3c9c66c1be96ec71078657b569ddd0970639a90ddf2f3849fa31bc010cff19e5b9b315ce836b9061926b196a156a72b9438f5cee24512ebc33a
+  checksum: 1c843206108358faef5cd8e25834de729a90319c3fa3f765923536fdd99b86b07a3e850b89ebe6503725a022dd9dddd5de76ef6e102d290cc5935dcf9c60198d
   languageName: node
   linkType: hard
 

@@ -72,15 +72,15 @@
     "react-native-credit-card-input": "^1.0.0",
     "react-native-international-phone-number": "^0.9.1",
     "react-native-otp-entry": "^1.8.3",
-    "react-native-really-awesome-button": "^2.0.4",
-    "react-native-safe-area-context": "^5.3.0",
-    "react-native-svg": "^15.11.2",
-    "react-native-webview": "^13.13.2"
+    "react-native-really-awesome-button": "^2.0.4"
   },
   "peerDependencies": {
     "expo-font": ">=13.0.0",
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-safe-area-context": ">=4.0.0",
+    "react-native-svg": ">=13.0.0",
+    "react-native-webview": ">=11.0.0"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.7.1",
@@ -99,6 +99,9 @@
     "react": "18.3.1",
     "react-native": "0.76.7",
     "react-native-builder-bob": "^0.37.0",
+    "react-native-safe-area-context": "^5.3.0",
+    "react-native-svg": "^15.11.2",
+    "react-native-webview": "^13.13.2",
     "release-it": "^18.1.2",
     "typescript": "^5.8.2"
   },
