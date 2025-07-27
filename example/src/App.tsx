@@ -21,7 +21,7 @@ import { useFonts } from 'expo-font';
 export default function App() {
   const sheetRef = useRef<BottomSheetMethods>(null);
 
-  const [fontsLoaded, error] = useFonts({
+  const [fontsLoaded, _error] = useFonts({
     SaudiRiyal: require('../assets/saudi_riyal.ttf'),
   });
 

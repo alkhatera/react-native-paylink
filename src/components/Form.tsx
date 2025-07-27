@@ -118,8 +118,8 @@ const Form = forwardRef(
           />
         ) : (
           <WebView
-            source={{ uri: paymentUrl }}
-            onNavigationStateChange={(e) => {}}
+            source={{ uri: paymentUrl || '' }}
+            onNavigationStateChange={() => {}}
           />
         )}
       </>

@@ -410,15 +410,3 @@ const modalStyles = (scheme: 'light' | 'dark') =>
       color: COLORS[scheme].text,
     },
   });
-
-const codeInputFieldStyle = (scheme: 'light' | 'dark') => ({
-  width: 50,
-  height: 45,
-  borderWidth: 0,
-  borderBottomWidth: 1,
-  fontSize: 18,
-  color: COLORS[scheme].text,
-  borderColor: COLORS[scheme].text,
-  backgroundColor: '#fff',
-  borderRadius: 5,
-});

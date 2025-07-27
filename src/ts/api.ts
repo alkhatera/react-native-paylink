@@ -3,7 +3,6 @@ import type {
   AddInvoiceProps,
   GetInvoiceProps,
   MerchantTokenProps,
-  PartnerTokenProps,
   PaylinkPayment,
   Post,
   RefundPaymentProps,
