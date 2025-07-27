@@ -17,7 +17,7 @@ interface SelectPaymentMethodProps {
   token: string;
   order: any;
   tab_size: number;
-  setFormType: (type: 'stcpay' | 'creditcard') => void;
+  setFormType: (type: 'stcpay' | 'creditcard' | 'online') => void;
   handleScroll: (index: number) => void;
   scheme: 'light' | 'dark';
   onSuccess: (orderNumber: string, transactionNo?: string) => void;
@@ -39,7 +39,7 @@ export default function SelectPaymentMethod({
     setApplePayLoaded(isLoaded);
   }
 
-  function onButtonPress(button: 'stcpay' | 'creditcard') {
+  function onButtonPress(button: 'stcpay' | 'creditcard' | 'online') {
     setFormType(button);
     handleScroll(1);
   }
@@ -123,6 +123,18 @@ export default function SelectPaymentMethod({
           resizeMode="contain"
           style={styles.img4}
         />
+      </AwesomeButton>
+
+      <View style={styles.lgDivider} />
+
+      <AwesomeButton
+        onPress={() => onButtonPress('online')}
+        height={45}
+        // @ts-ignore
+        width={'100%'}
+        backgroundColor={COLORS[scheme].text}
+      >
+        {language === 'ar' ? 'الدفع عبر الإنترنت' : 'Online Payment'}
       </AwesomeButton>
     </ScrollView>
   );
