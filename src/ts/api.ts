@@ -1,8 +1,10 @@
 import { PAYLINK_KEYS } from './constants';
 import type {
   AddInvoiceProps,
+  AddMerchantInvoiceProps,
   GetInvoiceProps,
   MerchantTokenProps,
+  PartnerTokenProps,
   PaylinkPayment,
   Post,
   RefundPaymentProps,
@@ -36,6 +38,30 @@ export async function fetchMerchantToken({
 }
 
 /**
+ * Fetch the partner token for the partner profile.
+ * @param partnerProfileNo - The profile number of the partner.
+ * @param partnerApiKey - The API key of the partner.
+ * @param persistToken - Whether to persist the token or not.
+ * @param env - The environment to use (default is 'prod').
+ * @returns A promise that resolves to the partner token.
+ */
+export async function fetchPartnerToken({
+  partnerProfileNo,
+  partnerApiKey,
+  persistToken = true,
+  env = 'prod',
+}: PartnerTokenProps) {
+  return POST({
+    url: `${PAYLINK_KEYS[env].PAYLINK_URL}/api/partner/auth`,
+    payload: {
+      profileNo: partnerProfileNo,
+      apiKey: partnerApiKey,
+      persistToken,
+    },
+  }) as Promise<{ id_token: string }>;
+}
+
+/**
  * Fetch the sub-merchant keys for a sub-merchant.
  * @param email - The email of the sub-merchant.
  * @param profileNo - The profile number of the partner.
@@ -62,7 +88,7 @@ export async function fetchSubMerchantKeys(
 }
 
 /**
- * Create a new invoice using the Paylink API.
+ * Create a new invoice using the Paylink API for a merchant or sub-merchant.
  * @param props - The properties for the invoice.
  * @param token - The merchant or sub-merchant token to use for authentication.
  * @returns A promise that resolves to the created invoice.
@@ -70,7 +96,6 @@ export async function fetchSubMerchantKeys(
 export async function addInvoice(
   {
     amount,
-    callbackUrl,
     clientEmail,
     clientMobile,
     clientName,
@@ -90,7 +115,6 @@ export async function addInvoice(
     url: `${PAYLINK_KEYS[env].PAYLINK_URL}/api/addInvoice`,
     payload: {
       amount,
-      callbackUrl,
       clientEmail,
       clientMobile,
       clientName,
@@ -108,14 +132,13 @@ export async function addInvoice(
 }
 
 /**
- * Pay an invoice using the Paylink API.
+ * Pay an invoice using the Paylink API for a merchant or sub-merchant.
  * @param props - The properties for the payment.
  * @param token - The merchant or sub-merchant token to use for authentication.
  */
 export async function payInvoice(
   {
     amount,
-    callbackUrl,
     clientEmail,
     clientMobile,
     clientName,
@@ -136,7 +159,6 @@ export async function payInvoice(
     url: `${PAYLINK_KEYS[env].PAYLINK_URL}/api/payInvoice`,
     payload: {
       amount,
-      callbackUrl,
       clientEmail,
       clientMobile,
       clientName,
@@ -149,6 +171,48 @@ export async function payInvoice(
       displayPending,
       card,
       callBackUrl,
+    },
+    token,
+  });
+}
+
+/**
+ * Create a new invoice for a sub-merchant using the Paylink API - useful when you need to split payments.
+ * @param props - The properties for the invoice.
+ * @param partnerProfileNo - The profile number of the partner.
+ * @param token - The partner token to use for authentication.
+ * @returns A promise that resolves to the created invoice.
+ */
+export async function addSubMerchantInvoice(
+  {
+    amount,
+    callBackUrl,
+    clientMobile,
+    clientName,
+    note,
+    orderNumber,
+    supportedCardBrands,
+    products,
+    partnerPortion,
+    receivers,
+    env = 'prod',
+  }: AddMerchantInvoiceProps,
+  partnerProfileNo: string, // Partner profile number
+  token: string
+) {
+  return POST({
+    url: `${PAYLINK_KEYS[env].ORDER_URL}/rest/partner/addMerchantInvoice/${partnerProfileNo}`,
+    payload: {
+      amount,
+      callBackUrl,
+      clientMobile,
+      clientName,
+      note,
+      orderNumber,
+      supportedCardBrands,
+      products,
+      partnerPortion,
+      receivers,
     },
     token,
   });

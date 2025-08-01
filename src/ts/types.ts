@@ -40,7 +40,6 @@ export interface Product {
 
 export interface AddInvoiceProps {
   amount: number;
-  callbackUrl?: string;
   clientEmail?: string;
   clientMobile: string;
   currency?: string;
@@ -102,23 +101,6 @@ export type Post = {
   token?: string;
 };
 
-// EXPORT
-export interface PayProps {
-  callingCode?: string;
-  phoneNumber?: string;
-  card?: Card;
-  token: string;
-  callBackUrl?: string;
-  amount: number;
-  clientName: string;
-  note?: string;
-  orderNumber: string;
-  products?: Product[];
-  currency?: string;
-  env: 'test' | 'prod';
-  clientEmail?: string;
-}
-
 export interface VerifySTCPayOtpProps {
   code: string;
   callingCode: string;
@@ -171,4 +153,35 @@ export interface PaylinkPayment {
     paymentDate: string;
     bankCardNumber: string;
   };
+}
+
+export interface AddMerchantInvoiceProps {
+  amount: number;
+  callBackUrl: string;
+  clientMobile: string;
+  clientName: string;
+  note: string;
+  orderNumber: string;
+  supportedCardBrands?: (
+    | 'mada'
+    | 'visaMastercard'
+    | 'amex'
+    | 'tabby'
+    | 'tamara'
+    | 'stcpay'
+    | 'urpay'
+  )[];
+  products: Product[];
+  partnerPortion?: {
+    amount: number;
+    isPayingPaylinkFees: boolean;
+  };
+  receivers: {
+    key: string | 'email';
+    value: string;
+    amount?: number; // optional for one receiver, required for multiple receivers
+    note?: string; // additional note for the receiver
+    isMainReceiver?: boolean; // optional for one receiver, required for multiple receivers
+  }[];
+  env?: 'test' | 'prod';
 }
