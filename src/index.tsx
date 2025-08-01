@@ -13,7 +13,7 @@ import {
   fetchPartnerToken,
   addSubMerchantInvoice,
 } from './ts/api';
-import type { AddInvoiceProps } from './ts/types';
+import type { AddInvoiceProps, AddMerchantInvoiceProps } from './ts/types';
 import { type BottomSheetMethods } from '@devvie/bottom-sheet';
 
 export {
@@ -31,4 +31,5 @@ export {
   type ReactNativePaylinkProps,
   type BottomSheetMethods,
   type AddInvoiceProps,
+  type AddMerchantInvoiceProps,
 };
